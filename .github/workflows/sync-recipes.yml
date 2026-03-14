@@ -1,0 +1,39 @@
+name: Sync Recipes
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Weekly on Monday at 6am UTC
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  sync-youtube:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Fetch YouTube recipes
+        run: cd scripts && python ingest_youtube.py
+        env:
+          YOUTUBE_PLAYLIST_URL: ${{ secrets.YOUTUBE_PLAYLIST_URL }}
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet content/ public/images/ || echo "has_changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit new recipes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "recipe-bot"
+          git config user.email "recipe-bot@users.noreply.github.com"
+          git add content/recipes/ public/images/recipes/
+          git commit -m "chore: sync recipes from YouTube"
+          git push
