@@ -91,8 +91,10 @@ def main():
         print("  osascript scripts/export_notes.applescript")
         sys.exit(1)
 
-    with open(EXPORT_FILE) as f:
-        notes = json.load(f)
+    raw = EXPORT_FILE.read_text(encoding="utf-8")
+    # AppleScript export may contain literal newlines inside JSON strings;
+    # use strict=False to tolerate control characters.
+    notes = json.loads(raw, strict=False)
 
     print(f"Found {len(notes)} notes in export.")
 

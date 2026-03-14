@@ -1,5 +1,7 @@
 .PHONY: dev build sync-youtube sync-notes sync-all
 
+UV_RUN = uv run --with pyyaml --with beautifulsoup4 --with html2text --with requests
+
 dev:
 	npm run dev
 
@@ -7,13 +9,10 @@ build:
 	npm run build
 
 sync-youtube:
-	cd scripts && python3 ingest_youtube.py
+	cd scripts && $(UV_RUN) python ingest_youtube.py
 
 sync-notes:
 	osascript scripts/export_notes.applescript
-	cd scripts && python3 ingest_notes.py
+	cd scripts && $(UV_RUN) python ingest_notes.py
 
 sync-all: sync-youtube sync-notes
-
-install-scripts:
-	pip3 install -r scripts/requirements.txt
