@@ -6,6 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
+UV_RUN="uv run --with pyyaml --with beautifulsoup4 --with html2text --with requests --with httpx"
 
 cd "$REPO_DIR"
 
@@ -15,19 +16,23 @@ echo "$(date): Starting Notes sync..."
 echo "Exporting notes..."
 osascript "$SCRIPT_DIR/export_notes.applescript"
 
-# Step 2: Convert to MDX (using uv to manage Python deps)
+# Step 2: Convert to MDX
 echo "Converting to MDX..."
 cd "$SCRIPT_DIR"
-uv run --with pyyaml --with beautifulsoup4 --with html2text --with requests python ingest_notes.py
+$UV_RUN python ingest_notes.py
 
-# Step 3: Check for changes and push
+# Step 3: Rewrite any unprocessed recipes
+echo "Rewriting recipes..."
+$UV_RUN python rewrite_recipes.py
+
+# Step 4: Check for changes and push
 cd "$REPO_DIR"
-git add content/recipes/notes/
+git add content/recipes/
 
 if git diff --cached --quiet; then
     echo "No new recipes from Notes."
 else
-    git commit -m "chore: sync recipes from Apple Notes"
+    git commit -m "chore: sync and rewrite recipes from Apple Notes"
     git push
     echo "New recipes pushed to GitHub."
 fi

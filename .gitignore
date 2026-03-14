@@ -42,5 +42,6 @@ next-env.d.ts
 
 # scripts temp files
 scripts/.notes-export.json
+scripts/config.yaml
 __pycache__/
 *.pyc

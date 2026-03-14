@@ -22,13 +22,18 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install -r scripts/requirements.txt
+        run: pip install -r scripts/requirements.txt httpx
 
       - name: Fetch YouTube recipes
         run: cd scripts && python ingest_youtube.py
         env:
           YOUTUBE_PLAYLIST_URL: ${{ secrets.YOUTUBE_PLAYLIST_URL }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+
+      - name: Rewrite unprocessed recipes
+        run: cd scripts && python rewrite_recipes.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Check for changes
         id: changes
@@ -42,5 +47,5 @@ jobs:
         run: |
           git config user.name "recipe-bot"
           git config user.email "recipe-bot@users.noreply.github.com"
-          git commit -m "chore: sync recipes from YouTube"
+          git commit -m "chore: sync and rewrite recipes"
           git push

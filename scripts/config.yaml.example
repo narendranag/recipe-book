@@ -1,0 +1,5 @@
+# Recipe Book Configuration
+# Copy this to config.yaml and fill in your values
+youtube_playlist_url: ""
+youtube_api_key: ""
+anthropic_api_key: ""
