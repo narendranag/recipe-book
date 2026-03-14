@@ -28,6 +28,7 @@ jobs:
         run: cd scripts && python ingest_youtube.py
         env:
           YOUTUBE_PLAYLIST_URL: ${{ secrets.YOUTUBE_PLAYLIST_URL }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
       - name: Check for changes
         id: changes
