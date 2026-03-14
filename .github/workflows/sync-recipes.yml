@@ -32,7 +32,8 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          git add content/recipes/ public/images/recipes/
+          git add content/recipes/
+          if [ -d "public/images/recipes" ]; then git add public/images/recipes/; fi
           git diff --cached --quiet || echo "has_changes=true" >> $GITHUB_OUTPUT
 
       - name: Commit new recipes
