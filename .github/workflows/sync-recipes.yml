@@ -5,11 +5,16 @@ on:
     - cron: '0 6 * * 1' # Weekly on Monday at 6am UTC
   workflow_dispatch: # Manual trigger
 
+permissions:
+  contents: write
+
 jobs:
   sync-youtube:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,13 +32,13 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet content/ public/images/ || echo "has_changes=true" >> $GITHUB_OUTPUT
+          git add content/recipes/ public/images/recipes/
+          git diff --cached --quiet || echo "has_changes=true" >> $GITHUB_OUTPUT
 
       - name: Commit new recipes
         if: steps.changes.outputs.has_changes == 'true'
         run: |
           git config user.name "recipe-bot"
           git config user.email "recipe-bot@users.noreply.github.com"
-          git add content/recipes/ public/images/recipes/
           git commit -m "chore: sync recipes from YouTube"
           git push
