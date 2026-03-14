@@ -1,5 +1,7 @@
 # Nag Family Recipes
 
+**[recipes.nag.family](https://recipes.nag.family)**
+
 A curated family recipe website inspired by NYT Cooking. Built with Next.js, deployed on Vercel.
 
 ## Features
