@@ -175,7 +175,27 @@ def fetch_playlist_ytdlp(playlist_url: str) -> list[dict]:
     return videos
 
 
-def write_recipe_mdx(video: dict) -> bool:
+def get_existing_video_ids() -> dict[str, Path]:
+    """Scan all YouTube recipe MDX files and return a map of videoId -> file path."""
+    video_ids = {}
+    if not RECIPES_DIR.exists():
+        return video_ids
+    for mdx_path in RECIPES_DIR.glob("*.mdx"):
+        raw = mdx_path.read_text(encoding="utf-8")
+        if raw.startswith("---"):
+            parts = raw.split("---", 2)
+            if len(parts) >= 3:
+                try:
+                    fm = yaml.safe_load(parts[1]) or {}
+                except Exception:
+                    continue
+                vid = fm.get("youtubeVideoId", "")
+                if vid:
+                    video_ids[vid] = mdx_path
+    return video_ids
+
+
+def write_recipe_mdx(video: dict, existing_ids: dict[str, Path]) -> bool:
     """
     Write a single recipe MDX file from video metadata.
     Returns True if a new file was written, False if skipped.
@@ -184,10 +204,10 @@ def write_recipe_mdx(video: dict) -> bool:
     slug = slugify(title)
     mdx_path = RECIPES_DIR / f"{slug}.mdx"
 
-    if mdx_path.exists():
+    video_id = video.get("id", "")
+    if video_id in existing_ids or mdx_path.exists():
         return False
 
-    video_id = video.get("id", "")
     description = video.get("description", "")
     channel = video.get("channel", "")
     published = video.get("publishedAt", "")
@@ -266,16 +286,32 @@ def main():
 
     print(f"Found {len(videos)} videos in playlist.")
 
+    existing_ids = get_existing_video_ids()
+    playlist_video_ids = {v.get("id", "") for v in videos if v.get("id")}
+
+    # Add new videos
     new_count = 0
     for video in videos:
         title = video.get("title", "Untitled")
-        if write_recipe_mdx(video):
+        if write_recipe_mdx(video, existing_ids):
             print(f"  + Added: {title}")
             new_count += 1
         else:
             print(f"  - Skipped (exists): {title}")
 
-    print(f"\nDone. {new_count} new recipes added.")
+    # Remove recipes for videos no longer in the playlist
+    removed_count = 0
+    for vid_id, path in existing_ids.items():
+        if vid_id not in playlist_video_ids:
+            print(f"  x Removed (not in playlist): {path.stem}")
+            path.unlink()
+            # Also remove thumbnail if it exists
+            thumb = IMAGES_DIR / f"{path.stem}.jpg"
+            if thumb.exists():
+                thumb.unlink()
+            removed_count += 1
+
+    print(f"\nDone. {new_count} new, {removed_count} removed.")
 
 
 if __name__ == "__main__":
