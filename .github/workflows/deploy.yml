@@ -1,0 +1,39 @@
+# Deploy to Cloudflare Workers on every push to main, after lint passes. No migrations, so push-to-main
+# is the deploy, as it was on Vercel. That includes the recipe bots' commits: there is no ISR, so a new
+# recipe only appears after a rebuild.
+#
+# Needs two repo secrets (Settings → Secrets and variables → Actions), set by the owner:
+#   CLOUDFLARE_API_TOKEN   a token from the "Edit Cloudflare Workers" template, scoped to this account
+#   CLOUDFLARE_ACCOUNT_ID  the account id (also in the secrets store as env.cloudflare_account_id)
+# `gh secret set CLOUDFLARE_ACCOUNT_ID` and `gh secret set CLOUDFLARE_API_TOKEN` prompt for the value.
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - name: build (OpenNext)
+        run: npx opennextjs-cloudflare build
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy

@@ -45,3 +45,8 @@ scripts/.notes-export.json
 scripts/config.yaml
 __pycache__/
 *.pyc
+
+# OpenNext / wrangler
+/.open-next/
+/.wrangler/
+.dev.vars*

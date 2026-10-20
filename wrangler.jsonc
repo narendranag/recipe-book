@@ -1,0 +1,17 @@
+// The Worker that serves this app, built by OpenNext (`npm run deploy`).
+// No secrets: the site reads no env at runtime.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "recipe-book",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  }
+}
