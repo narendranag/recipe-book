@@ -2,7 +2,7 @@
 
 **[recipes.nag.family](https://recipes.nag.family)**
 
-A curated family recipe website inspired by NYT Cooking. Built with Next.js, deployed on Vercel.
+A curated family recipe website inspired by NYT Cooking. Built with Next.js, deployed on Cloudflare Workers (OpenNext).
 
 ## Features
 
@@ -58,6 +58,6 @@ tags: ["tag1", "tag2"]
 
 ## Deployment
 
-Deployed on Vercel with auto-deploy on push to `main`. A GitHub Action runs weekly to sync new YouTube recipes.
+Deployed on Cloudflare Workers via OpenNext; `.github/workflows/deploy.yml` deploys on every push to `main` (`npm run deploy` by hand). A GitHub Action runs weekly to sync new YouTube recipes.
 
 Add `YOUTUBE_PLAYLIST_URL` as a GitHub repo secret for automated syncing.

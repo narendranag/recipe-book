@@ -24,16 +24,16 @@ npm 11 gates install scripts: `allowScripts` in `package.json` pins `esbuild` an
 
 ## Adding recipes
 
-- **YouTube:** `make sync-youtube`, then `make rewrite` (Claude cleans titles, ingredients and steps). GitHub Action `sync-recipes.yml` does both weekly (Mon 06:00 UTC) and commits to `main`. Repo secrets: `YOUTUBE_PLAYLIST_URL`, `YOUTUBE_API_KEY`. `ANTHROPIC_API_KEY` is referenced by the workflow but **not set**, so the rewrite step can't run in CI.
+- **YouTube:** `make sync-youtube`, then `make rewrite` (Claude cleans titles, ingredients and steps). GitHub Action `sync-recipes.yml` does both weekly (Mon 06:00 UTC) and commits to `main`. Repo secrets: `YOUTUBE_PLAYLIST_URL`, `YOUTUBE_API_KEY`, `ANTHROPIC_API_KEY`.
 - **Apple Notes:** `make sync-notes` (osascript export of the "Recipes" folder → MDX), or `scripts/sync-notes.sh` under launchd. It commits and pushes on its own.
 - **By hand:** an MDX file in `content/recipes/manual/` (README has the front matter).
 
 ## Deploy
 
-- **Now:** Vercel, auto-deploy on push to `main` (project `recipe-book`, domain recipes.nag.family).
-- **Porting to:** Cloudflare Workers via OpenNext (`@opennextjs/cloudflare`), on branch `cloudflare-workers`, following `~/claude-computer/docs/runbooks/vercel-to-cloudflare.md`. Staged at https://recipe-book.narendranag-cd1.workers.dev (Worker `recipe-book`). Main and production stay on Vercel until Narendra OKs the DNS cutover and the production deploy.
+- Cloudflare Workers via OpenNext (`@opennextjs/cloudflare`), Worker `recipe-book`, serving recipes.nag.family as a custom domain since 2026-10-21 (also https://recipe-book.narendranag-cd1.workers.dev). Ported per `~/claude-computer/docs/runbooks/vercel-to-cloudflare.md`.
   - `open-next.config.ts` uses the static-assets incremental cache. Pages read `fs` at build time and would 500 if rendered per request. That cache is read-only, so there's no ISR: a new recipe needs a rebuild.
   - `public/_headers` marks `/_next/static/*` immutable. `wrangler.jsonc` has no secrets, because the site needs none.
-  - `.github/workflows/deploy.yml` deploys on push to `main` once the repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` exist.
+  - `.github/workflows/deploy.yml` deploys on push to `main` (repo secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`).
+- Vercel project `recipe-book` is kept as a fallback and still builds `main`. Rollback: recreate the CNAME `recipes.nag.family` → `f163c48bd91bc12e.vercel-dns-017.com` (DNS-only) after removing the Worker custom domain.
 
 Every push to `main` deploys, including the bots' recipe commits, so a broken MDX file breaks production.
