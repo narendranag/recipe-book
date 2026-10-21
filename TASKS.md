@@ -13,7 +13,6 @@
 
 ## Later
 
-- [ ] Fix 404s on non-ASCII slugs and categories with spaces (`/category/Main Course`, `/recipe/béchamel-sauce-pasta`, the Hindi-titled butter chicken). Also broken on Vercel. Likely cause, unverified: params compared without `decodeURIComponent`
 - [ ] 51 MDX files but 49 recipe pages: `butter-chicken` and `orange-posset` exist in both notes/ and youtube/, and one of each pair is shadowed
 - [ ] `ANTHROPIC_API_KEY` repo secret for the weekly rewrite step (it's missing, so CI can't rewrite)
 - [ ] Project docs in `docs/` per the documentation standard
@@ -22,4 +21,5 @@
 
 - [x] 2026-10-20 Brain: CLAUDE.md + TASKS.md
 - [x] 2026-10-20 Env inventory: Vercel has no env vars or Marketplace storage; the app reads no env. Nothing to copy
+- [x] 2026-10-21 Fix 404s on non-ASCII slugs and categories with spaces (decode route params; stop double-encoding category static params)
 - [x] 2026-10-20 Port to OpenNext on `cloudflare-workers`: next 16.4.2, OpenNext 1.20.12, wrangler 4.151.3; staged on workers.dev, route-for-route parity with production

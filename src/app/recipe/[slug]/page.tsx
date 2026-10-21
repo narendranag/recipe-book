@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getAllSlugs, getRecipeBySlug } from "@/lib/recipes";
+import { decodeParam, getAllSlugs, getRecipeBySlug } from "@/lib/recipes";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import IngredientList from "@/components/IngredientList";
 import InstructionSteps from "@/components/InstructionSteps";
@@ -15,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const result = getRecipeBySlug(slug);
+  const result = getRecipeBySlug(decodeParam(slug));
   if (!result) return { title: "Recipe Not Found" };
   return {
     title: `${result.recipe.title} | Nag Family Recipes`,
@@ -29,7 +29,7 @@ export default async function RecipePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const result = getRecipeBySlug(slug);
+  const result = getRecipeBySlug(decodeParam(slug));
   if (!result) notFound();
 
   const { recipe } = result;

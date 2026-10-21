@@ -105,3 +105,12 @@ export function getAllCategories(): string[] {
 export function getAllSlugs(): string[] {
   return getAllRecipes().map((r) => r.slug);
 }
+
+// Route params for non-ASCII or spaced segments can arrive percent-encoded.
+export function decodeParam(param: string): string {
+  try {
+    return decodeURIComponent(param);
+  } catch {
+    return param;
+  }
+}

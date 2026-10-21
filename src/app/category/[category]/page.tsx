@@ -1,12 +1,10 @@
 import { notFound } from "next/navigation";
-import { getAllRecipes, getAllCategories } from "@/lib/recipes";
+import { decodeParam, getAllRecipes, getAllCategories } from "@/lib/recipes";
 import RecipeGrid from "@/components/RecipeGrid";
 import CategoryFilter from "@/components/CategoryFilter";
 
 export async function generateStaticParams() {
-  return getAllCategories().map((category) => ({
-    category: encodeURIComponent(category),
-  }));
+  return getAllCategories().map((category) => ({ category }));
 }
 
 export async function generateMetadata({
@@ -15,7 +13,7 @@ export async function generateMetadata({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
-  const decoded = decodeURIComponent(category);
+  const decoded = decodeParam(category);
   return {
     title: `${decoded} Recipes | Nag Family Recipes`,
   };
@@ -27,7 +25,7 @@ export default async function CategoryPage({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
-  const decoded = decodeURIComponent(category);
+  const decoded = decodeParam(category);
   const allRecipes = getAllRecipes();
   const categories = getAllCategories();
   const filtered = allRecipes.filter((r) => r.category.includes(decoded));
