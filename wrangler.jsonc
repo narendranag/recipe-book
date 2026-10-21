@@ -11,6 +11,7 @@
     "directory": ".open-next/assets"
   },
   "workers_dev": true,
+  "routes": [{ "pattern": "recipes.nag.family", "custom_domain": true }],
   "observability": {
     "enabled": true
   }
