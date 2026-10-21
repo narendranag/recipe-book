@@ -37,3 +37,12 @@ npm 11 gates install scripts: `allowScripts` in `package.json` pins `esbuild` an
 - Vercel is retired: the `recipe-book` project was deleted on 2026-10-21, so there is no Vercel fallback.
 
 Every push to `main` deploys, including the bots' recipe commits, so a broken MDX file breaks production.
+
+## Gotchas
+
+- Test the Worker locally with `npm run preview`, not `wrangler dev` after a build. The prerendered pages only reach `.open-next/assets` at preview/deploy time (OpenNext's populate-cache step).
+- To check a deploy, request every route in `.next/prerender-manifest.json` and expect 200 (63 real routes as of 2026-10-21). Keys can hold non-ASCII characters, so encode them once: `encodeURI(decodeURI(key))`.
+- Route params can arrive percent-encoded. Pages decode them with `decodeParam` (`src/lib/recipes.ts`), and `generateStaticParams` must return raw values, never pre-encoded ones.
+- A badly formed URL (`/recipe/%E0%A4`) returns 500 from Next's router before page code runs. Vercel did the same.
+- The custom domain is set in `wrangler.jsonc` (`routes`, `custom_domain: true`). Cloudflare refuses the attach (code 100117) while a DNS record it doesn't manage exists for the hostname, and `override_existing_dns_record` doesn't change that. The cutover deleted the old CNAME and attached in one script.
+- TTFB from mini is about 0.5 s (connect 156 ms to the MRS colo) against Vercel's 0.11 s. That's network routing, not the Worker.

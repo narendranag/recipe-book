@@ -8,6 +8,8 @@
 
 - [ ] 51 MDX files but 49 recipe pages: `butter-chicken` and `orange-posset` exist in both notes/ and youtube/, and one of each pair is shadowed
 - [ ] Project docs in `docs/` per the documentation standard
+- [ ] (owner) Remove the account-level `nag.family` domain entry on Vercel? Nothing on Vercel uses it now. Left in place because only the project deletion was asked for
+- [ ] (owner) Delete the merged `cloudflare-workers` branch (local and origin)? It's fully merged into `main`
 
 ## Done
 
