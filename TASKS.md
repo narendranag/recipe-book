@@ -4,14 +4,14 @@
 
 ## Next
 
-- [ ] Retire Vercel once it's no longer needed as a fallback: disconnect the Git integration (it still builds every push to `main`), remove the domain, delete the project (ask first; each is a delete)
-
 ## Later
 
 - [ ] 51 MDX files but 49 recipe pages: `butter-chicken` and `orange-posset` exist in both notes/ and youtube/, and one of each pair is shadowed
 - [ ] Project docs in `docs/` per the documentation standard
 
 ## Done
+
+- [x] 2026-10-21 Retired Vercel: project `recipe-book` deleted, with its deployments and its recipes.nag.family assignment. The account-level `nag.family` domain entry on Vercel was left alone
 
 - [x] 2026-10-21 Cutover: recipes.nag.family serves from the Worker (custom domain). Vercel CNAME deleted and replaced in one script; 63/63 routes 200, immutable /_next/static, http→https, deploy.yml green (run 39545918994). TTFB from mini 0.51 s vs Vercel's 0.11 s (MRS routing)
 - [x] 2026-10-21 Production deploy: `cloudflare-workers` merged into `main` (fast-forward) and pushed

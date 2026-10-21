@@ -34,6 +34,6 @@ npm 11 gates install scripts: `allowScripts` in `package.json` pins `esbuild` an
   - `open-next.config.ts` uses the static-assets incremental cache. Pages read `fs` at build time and would 500 if rendered per request. That cache is read-only, so there's no ISR: a new recipe needs a rebuild.
   - `public/_headers` marks `/_next/static/*` immutable. `wrangler.jsonc` has no secrets, because the site needs none.
   - `.github/workflows/deploy.yml` deploys on push to `main` (repo secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`).
-- Vercel project `recipe-book` is kept as a fallback and still builds `main`. Rollback: recreate the CNAME `recipes.nag.family` → `f163c48bd91bc12e.vercel-dns-017.com` (DNS-only) after removing the Worker custom domain.
+- Vercel is retired: the `recipe-book` project was deleted on 2026-10-21, so there is no Vercel fallback.
 
 Every push to `main` deploys, including the bots' recipe commits, so a broken MDX file breaks production.
