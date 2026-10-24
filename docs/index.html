@@ -547,6 +547,12 @@ the repo secrets <code>CLOUDFLARE_API_TOKEN</code> and
 sources</a>), so their recipes deploy without review. Work that isn't
 ready goes on a branch.</p>
 <h2 id="deploy-commands">Commands</h2>
+<p>The <code>justfile</code> wraps these: <code>just setup</code>
+(<code>npm ci</code>), <code>just test</code> (the build),
+<code>just lint</code> (<code>tsc --noEmit</code>, ESLint,
+<code>docs-build --check docs</code>), <code>just run</code>,
+<code>just build</code>, <code>just preview</code>,
+<code>just deploy</code>.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>

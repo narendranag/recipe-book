@@ -36,6 +36,8 @@ Pages read `fs` at build time and would fail if rendered per request, which is w
 
 ## Commands
 
+The `justfile` wraps these: `just setup` (`npm ci`), `just test` (the build), `just lint` (`tsc --noEmit`, ESLint, `docs-build --check docs`), `just run`, `just build`, `just preview`, `just deploy`.
+
 | Command           | Does                                                     |
 | ----------------- | -------------------------------------------------------- |
 | `npm run dev`     | Next dev server at http://localhost:3000                 |
