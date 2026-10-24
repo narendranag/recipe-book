@@ -4,6 +4,19 @@
 
 ## Next
 
+- [ ] "Similar recipes" and "swap this ingredient" on recipe pages, from Epicure ingredient embeddings computed at build time — plan ready, owner's OK. The owner asked for it on 2026-10-24 (their answer to Q1 of the Epicure explore). Background: `~/projects/explore/epicure/epicure.md` (branch `later-2026-10-24` of `narendranag/explore`), §Applicability and §Spike; read it there.
+  - **What:** a "Similar recipes" row (top 5) on each `/recipe/[slug]` page, and per-ingredient swap hints. Both precomputed into static JSON; nothing runs per request, and the Worker and the site's runtime are unchanged.
+  - **Step 1, spike (the note's §Spike, 5 h operator time, 0 USD):** Epicure core vs all-MiniLM-L6-v2 on the 51 recipes, in a scratch venv on mini, writing nothing into this repo. The owner judges 20 pairs blind (30 min). Kill it if coverage stays under 70 % after 60 min of mapping. The note's decision tree (adopt / trial / watch / skip) decides whether step 2 happens.
+  - **Step 2, build (only on "adopt"):**
+    - `scripts/similar_recipes.py`: normalises each `ingredients` line (lowercase, strip quantities and units, exact then fuzzy match to Epicure's 1,790 names, then `scripts/ingredient_aliases.yaml`). It averages each recipe's vectors, ranks by cosine and writes `src/data/similar.json` (slug → top 5, ingredient → nearest names), which is committed. It prints unmapped lines. `make similar`; `sync-recipes.yml` and `sync-notes.sh` run it after `rewrite_recipes.py`.
+    - Epicure files are fetched into a git-ignored cache by the script, not committed. `similar.json` is the only artefact.
+    - `src/lib/recipes.ts` reads `similar.json`; `src/app/recipe/[slug]/page.tsx` adds the row and a hint under each ingredient. The build fails if `similar.json` names a slug that doesn't exist, and warns on recipes missing from it.
+    - A CC BY 4.0 attribution for Epicure in the site footer. `docs/02-recipes.md` gets a "Similar recipes" section; then `docs-build`.
+  - **Size:** spike 5 h. Build about 1 day: similar recipes about 5 h, swap hints about 3 h. Upkeep is about 3 min per new recipe for alias mapping (the note's cost model: about 11 h in year 1).
+  - **Risks:** free-text mapping is the real cost and recurs with each new recipe; Epicure neighbours show what *pairs* with an ingredient, not what *replaces* it, so swap hints ship only after a cook's review (a reviewed list in the alias file); core and chem draw on FlavorDB (academic use), fine for a family site, but the co-occurrence variant is the clean choice if it ever goes commercial; the bots push to `main`, so an unmapped line must warn, never fail the build.
+- [ ] (owner) For the similar-recipes spike: is 30 minutes of blind judging (20 pairs) OK as its only call on your time? Proposed default: yes, scheduled once the spike's lists are ready
+- [ ] (owner) Will recipe-book stay a family site? It decides whether Epicure core (FlavorDB, academic use) is acceptable or the co-occurrence variant is needed. Proposed default: family site, so core
+
 ## Later
 
 
