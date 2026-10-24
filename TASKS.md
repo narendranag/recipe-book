@@ -1,18 +1,21 @@
 # Tasks — recipe-book
 
+Resume: 2026-10-24 Later list worked. `fix/duplicate-slugs` (slug fix + docs) waits for the owner's OK to merge, which deploys; the other two Later items are the owner's.
+
 ## Now
 
 ## Next
 
 ## Later
 
-- [ ] 51 MDX files but 49 recipe pages: `butter-chicken` and `orange-posset` exist in both notes/ and youtube/, and one of each pair is shadowed
-- [ ] Project docs in `docs/` per the documentation standard
-- [ ] (owner) Remove the account-level `nag.family` domain entry on Vercel? Nothing on Vercel uses it now. Left in place because only the project deletion was asked for
-- [ ] (owner) Delete the merged `cloudflare-workers` branch (local and origin)? It's fully merged into `main`
+- [ ] (owner) Remove the account-level `nag.family` domain entry on Vercel? Nothing on Vercel uses it now. Left in place because only the project deletion was asked for. Proposed default: remove it (it is a deletion, so it waits for your yes)
+- [ ] (owner) Delete the merged `cloudflare-workers` branch (local and origin)? It's fully merged into `main`. Proposed default: delete both (a deletion; waits for your yes)
+- [ ] (owner) Merge `fix/duplicate-slugs` into `main`? A merge deploys production: two new pages (`/recipe/butter-chicken-your-food-lab`, `/recipe/orange-posset-florency-dias`), the slug guards, and `docs/`. Build and lint pass on the branch. Proposed default: merge, then check every route in `.next/prerender-manifest.json` returns 200
 
 ## Done
 
+- [x] 2026-10-24 Duplicate slugs: the YouTube `butter-chicken` and `orange-posset` were shadowed by the notes copies. Renamed to `butter-chicken-your-food-lab` and `orange-posset-florency-dias`; `rewrite_recipes.py` now checks slugs across every folder, and the build fails on a duplicate (tested). 51 files, 51 pages. On `fix/duplicate-slugs` (5dd3743, 70c3a8d), not merged
+- [x] 2026-10-24 Project docs in `docs/` per the documentation standard: index, overview, recipes, deploy; `docs-build` passes. On `fix/duplicate-slugs` (bf1ad4f)
 - [x] 2026-10-21 Retired Vercel: project `recipe-book` deleted, with its deployments and its recipes.nag.family assignment. The account-level `nag.family` domain entry on Vercel was left alone
 
 - [x] 2026-10-21 Cutover: recipes.nag.family serves from the Worker (custom domain). Vercel CNAME deleted and replaced in one script; 63/63 routes 200, immutable /_next/static, http→https, deploy.yml green (run 39545918994). TTFB from mini 0.51 s vs Vercel's 0.11 s (MRS routing)

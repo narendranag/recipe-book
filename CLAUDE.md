@@ -9,11 +9,12 @@
 - System and fleet: `~/claude-computer/docs/` (start with `FLEET.md`).
 - How every project is built: `~/claude-computer/docs/DEV-GUIDELINES.md`. Deviations are listed below with the reason.
 - Tasks: `TASKS.md` in this folder.
+- Docs: `docs/` (read `docs/llms.txt` first); rebuild with `docs-build` after every change.
 
 ## What's here
 
 - Next.js 16 App Router + Tailwind 4, npm (not pnpm). Pages: `/`, `/recipe/[slug]`, `/category/[category]`, all statically generated (`generateStaticParams`).
-- Recipes are MDX front matter in `content/recipes/{youtube,notes}/` (51 files, 49 pages, as of 2026-10-20), read with `fs` in `src/lib/recipes.ts` at build time. Thumbnails live in `public/images/recipes/`. Search is client-side Fuse.js.
+- Recipes are MDX front matter in `content/recipes/{youtube,notes}/` (51 files, 51 pages, as of 2026-10-24; a duplicate slug fails the build), read with `fs` in `src/lib/recipes.ts` at build time. Thumbnails live in `public/images/recipes/`. Search is client-side Fuse.js.
 - No database, no runtime env vars, no auth.
 
 ## Run
