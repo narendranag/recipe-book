@@ -67,6 +67,16 @@ def load_recipe(path: Path) -> tuple[dict, str]:
     return {}, raw
 
 
+def other_slugs(path: Path) -> set[str]:
+    """Slugs of every recipe except the one at path (the site's slug rule)."""
+    slugs = set()
+    for other in RECIPES_DIR.rglob("*.mdx"):
+        if other != path:
+            fm, _ = load_recipe(other)
+            slugs.add(fm.get("slug") or other.stem)
+    return slugs
+
+
 def save_recipe(path: Path, frontmatter: dict, body: str = ""):
     """Save a recipe MDX file."""
     yaml_str = yaml.dump(
@@ -244,6 +254,16 @@ def process_recipe(api_key: str, path: Path) -> bool:
     if fm.get("datePublished"):
         updated["datePublished"] = fm["datePublished"]
     updated["tags"] = result.get("tags", [])
+
+    # Slugs are one namespace across notes/, youtube/ and manual/: a clash
+    # in another folder would shadow one of the two pages
+    taken = other_slugs(path)
+    if new_slug in taken:
+        new_slug = f"{new_slug}-{slugify(fm.get('author', '') or updated['source'])}"
+        base, n = new_slug, 2
+        while new_slug in taken:
+            new_slug, n = f"{base}-{n}", n + 1
+        updated["slug"] = new_slug
 
     # Rename file if slug changed
     new_path = path.parent / f"{new_slug}.mdx"

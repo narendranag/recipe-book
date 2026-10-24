@@ -49,6 +49,16 @@ export function getAllRecipes(): Recipe[] {
     } as Recipe;
   });
 
+  // A shared slug would shadow one page, so fail the build instead.
+  const seen = new Map<string, string>();
+  recipes.forEach((r, i) => {
+    const other = seen.get(r.slug);
+    if (other) {
+      throw new Error(`Duplicate recipe slug "${r.slug}": ${other} and ${files[i]}`);
+    }
+    seen.set(r.slug, files[i]);
+  });
+
   return recipes.sort(
     (a, b) => new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime()
   );
