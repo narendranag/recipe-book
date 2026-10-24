@@ -1,0 +1,22 @@
+[
+  {
+    "term": "Recipe",
+    "definition": "One `.mdx` file under `content/recipes/`; all its data is YAML front matter"
+  },
+  {
+    "term": "Slug",
+    "definition": "A recipe's URL name, `/recipe/<slug>`; unique across every source folder"
+  },
+  {
+    "term": "Source",
+    "definition": "Where a recipe came from: `youtube`, `notes` or `manual`, and the folder it lives in"
+  },
+  {
+    "term": "Rewrite",
+    "definition": "The pass by `scripts/rewrite_recipes.py` in which Claude cleans a new recipe's title, ingredients and steps"
+  },
+  {
+    "term": "Worker",
+    "definition": "The Cloudflare Worker `recipe-book` that serves the site, built with OpenNext"
+  }
+]

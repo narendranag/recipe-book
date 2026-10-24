@@ -1,0 +1,197 @@
+{
+  "title": "recipe-book documentation",
+  "summary": "Index of the documentation for recipe-book, the Nag Family Recipes site.",
+  "source_of_truth": "markdown",
+  "documents": [
+    {
+      "id": "index",
+      "title": "recipe-book documentation",
+      "order": 0,
+      "summary": "Index of the documentation for recipe-book, the Nag Family Recipes site.",
+      "status": "stable",
+      "updated": "2026-10-24",
+      "audience": [
+        "everyone"
+      ],
+      "depends_on": [],
+      "related": [
+        "overview",
+        "recipes",
+        "deploy"
+      ],
+      "defines": [
+        "recipe",
+        "slug",
+        "source",
+        "rewrite",
+        "worker"
+      ],
+      "answers": [
+        "Which document covers which topic?",
+        "What do the core terms mean?",
+        "Where are the machine-readable versions of these documents?"
+      ],
+      "file": "README.md",
+      "sections": [
+        {
+          "level": 2,
+          "title": "Reading order",
+          "anchor": "reading-order"
+        },
+        {
+          "level": 2,
+          "title": "Terms used throughout",
+          "anchor": "terms-used-throughout"
+        },
+        {
+          "level": 2,
+          "title": "Ways to read these documents",
+          "anchor": "ways-to-read-these-documents"
+        }
+      ]
+    },
+    {
+      "id": "overview",
+      "title": "Overview",
+      "order": 1,
+      "summary": "What the recipe site is, how it is put together, and what is in and out of scope.",
+      "status": "stable",
+      "updated": "2026-10-24",
+      "audience": [
+        "everyone"
+      ],
+      "depends_on": [
+        "index"
+      ],
+      "related": [
+        "recipes",
+        "deploy"
+      ],
+      "defines": [],
+      "answers": [
+        "What is recipe-book for?",
+        "How is the site built?",
+        "What is deliberately out of scope?"
+      ],
+      "file": "01-overview.md",
+      "sections": [
+        {
+          "level": 2,
+          "title": "What it is",
+          "anchor": "what-it-is"
+        },
+        {
+          "level": 2,
+          "title": "How it is put together",
+          "anchor": "how-it-is-put-together"
+        },
+        {
+          "level": 2,
+          "title": "Scope",
+          "anchor": "scope"
+        },
+        {
+          "level": 2,
+          "title": "What stays hard",
+          "anchor": "what-stays-hard"
+        }
+      ]
+    },
+    {
+      "id": "recipes",
+      "title": "Recipes",
+      "order": 2,
+      "summary": "The recipe file format, the three sources and their syncs, the slug rule, and the Claude rewrite.",
+      "status": "stable",
+      "updated": "2026-10-24",
+      "audience": [
+        "developers"
+      ],
+      "depends_on": [
+        "index",
+        "overview"
+      ],
+      "related": [
+        "deploy"
+      ],
+      "defines": [],
+      "answers": [
+        "What goes in a recipe file?",
+        "How do recipes get from YouTube and Apple Notes into the site?",
+        "How are slugs chosen, and what happens when two recipes clash?",
+        "What does the rewrite step change?"
+      ],
+      "file": "02-recipes.md",
+      "sections": [
+        {
+          "level": 2,
+          "title": "The file",
+          "anchor": "the-file"
+        },
+        {
+          "level": 2,
+          "title": "The sources",
+          "anchor": "the-sources"
+        },
+        {
+          "level": 2,
+          "title": "Slugs",
+          "anchor": "slugs"
+        },
+        {
+          "level": 2,
+          "title": "The rewrite",
+          "anchor": "the-rewrite"
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "title": "Deploy",
+      "order": 3,
+      "summary": "How the site is hosted on Cloudflare Workers, how a push deploys it, and how to check a deploy.",
+      "status": "stable",
+      "updated": "2026-10-24",
+      "audience": [
+        "developers"
+      ],
+      "depends_on": [
+        "index",
+        "overview"
+      ],
+      "related": [
+        "recipes"
+      ],
+      "defines": [],
+      "answers": [
+        "Where does the site run?",
+        "How does a change reach production?",
+        "How do I test the Worker locally?",
+        "How do I check that a deploy worked?"
+      ],
+      "file": "03-deploy.md",
+      "sections": [
+        {
+          "level": 2,
+          "title": "Where it runs",
+          "anchor": "where-it-runs"
+        },
+        {
+          "level": 2,
+          "title": "How a change reaches production",
+          "anchor": "how-a-change-reaches-production"
+        },
+        {
+          "level": 2,
+          "title": "Commands",
+          "anchor": "commands"
+        },
+        {
+          "level": 2,
+          "title": "Checking a deploy",
+          "anchor": "checking-a-deploy"
+        }
+      ]
+    }
+  ]
+}

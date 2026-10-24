@@ -1,0 +1,22 @@
+# recipe-book documentation
+
+> Index of the documentation for recipe-book, the Nag Family Recipes site.
+
+The Markdown files are the source of truth.
+Read AGENTS.md first for conventions.
+
+## Documents
+
+- [01 Overview](01-overview.md): What the recipe site is, how it is put together, and what is in and out of scope.
+- [02 Recipes](02-recipes.md): The recipe file format, the three sources and their syncs, the slug rule, and the Claude rewrite.
+- [03 Deploy](03-deploy.md): How the site is hosted on Cloudflare Workers, how a push deploys it, and how to check a deploy.
+
+## Machine-readable data
+
+- [Manifest](data/manifest.json): every document with its metadata, dependencies and section anchors
+- [Glossary](data/glossary.json): terms and definitions
+
+## Optional
+
+- [AGENTS.md](AGENTS.md): conventions for agents reading or editing these documents
+- [index.html](index.html): all documents as one static page for people
