@@ -19,7 +19,7 @@
 
 ## Run
 
-`npm install` · `npm run dev` (http://localhost:3000) · `npm run build` · `npm run lint` · `npm run preview` (OpenNext build under workerd) · `npm run deploy` (OpenNext build + deploy to Workers)
+`just setup|test|lint|run` (also `build`, `preview`, `deploy`) wrap the npm scripts: `npm install` · `npm run dev` (http://localhost:3000) · `npm run build` · `npm run lint` · `npm run preview` (OpenNext build under workerd) · `npm run deploy` (OpenNext build + deploy to Workers)
 
 npm 11 gates install scripts: `allowScripts` in `package.json` pins `esbuild` and `workerd` by version, so after a bump run `npm install-scripts approve esbuild workerd`.
 
