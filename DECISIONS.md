@@ -7,3 +7,5 @@
 - [mini] [2026-10-21] Keep the Vercel project as a fallback for now — rollback is recreating the CNAME to f163c48bd91bc12e.vercel-dns-017.com (DNS-only, TTL 600); retiring it is a separate yes
 - [mini] [2026-10-21] Retire Vercel: delete the `recipe-book` project — Narendra asked; the site has served from the Worker since the cutover, and the Vercel project held no env vars or storage
 - [mini] [2026-10-24] Slugs are one namespace across sources: a clash gets the author's name as a suffix (`butter-chicken-your-food-lab`), and the build fails on a duplicate — a shadowed page is invisible, a failed build is loud and keeps production on the last good deploy
+- [mini] [2026-10-24] `just test` runs the build — there are no unit tests, and the build is the real check: it prerenders every recipe and fails on a duplicate slug
+- [mini] [2026-10-24] Commit the root `AGENTS.md` that `next dev` writes — it re-creates the file whenever it is missing, so leaving it untracked keeps the tree dirty

@@ -1,7 +1,5 @@
 # Tasks — recipe-book
 
-Resume: 2026-10-24 Later list empty. Everything is on `main` and live; nothing open in this brain.
-
 ## Now
 
 ## Next
@@ -11,6 +9,7 @@ Resume: 2026-10-24 Later list empty. Everything is on `main` and live; nothing o
 
 ## Done
 
+- [x] 2026-10-24 justfile (setup, test, lint, run, build, preview, deploy) for the brains standard, round 3 (fleet session's request); setup, test, lint and run checked
 - [x] 2026-10-24 Deleted the merged `cloudflare-workers` and `fix/duplicate-slugs` branches, local and origin (owner's OK; both 0 commits ahead of `main`)
 - [x] 2026-10-22 Vercel's account-level `nag.family` domain entry removed by the fleet session (`vercel domains rm`, `~/claude-computer/TASKS.md`); `vercel domains ls` shows 0 domains on 2026-10-24
 - [x] 2026-10-24 Merged `fix/duplicate-slugs` into `main` (fast-forward to b3f68fc) with the owner's OK; deploy.yml run 40088616018 green; 65/65 real routes 200 on recipes.nag.family

@@ -41,6 +41,7 @@ Every push to `main` deploys, including the bots' recipe commits, so a broken MD
 
 ## Gotchas
 
+- `next dev` writes `AGENTS.md` at the root (Next's agent rules) and re-creates it if it is deleted; it is committed on purpose.
 - Test the Worker locally with `npm run preview`, not `wrangler dev` after a build. The prerendered pages only reach `.open-next/assets` at preview/deploy time (OpenNext's populate-cache step).
 - To check a deploy, request every route in `.next/prerender-manifest.json` and expect 200 (65 real routes as of 2026-10-24; `/_not-found` 404 and `/_global-error` 500 are Next's own and expected). Keys can hold non-ASCII characters, so encode them once: `encodeURI(decodeURI(key))`.
 - Route params can arrive percent-encoded. Pages decode them with `decodeParam` (`src/lib/recipes.ts`), and `generateStaticParams` must return raw values, never pre-encoded ones.
