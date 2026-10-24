@@ -1,6 +1,6 @@
 # Tasks — recipe-book
 
-Resume: 2026-10-24 Later list done and merged; only the owner's two deletion questions remain (Vercel `nag.family` domain entry, merged `cloudflare-workers` branch).
+Resume: 2026-10-24 Later list empty. Everything is on `main` and live; nothing open in this brain.
 
 ## Now
 
@@ -8,11 +8,11 @@ Resume: 2026-10-24 Later list done and merged; only the owner's two deletion que
 
 ## Later
 
-- [ ] (owner) Remove the account-level `nag.family` domain entry on Vercel? Nothing on Vercel uses it now. Left in place because only the project deletion was asked for. Proposed default: remove it (it is a deletion, so it waits for your yes)
-- [ ] (owner) Delete the merged `cloudflare-workers` branch (local and origin)? It's fully merged into `main`. Proposed default: delete both (a deletion; waits for your yes)
 
 ## Done
 
+- [x] 2026-10-24 Deleted the merged `cloudflare-workers` and `fix/duplicate-slugs` branches, local and origin (owner's OK; both 0 commits ahead of `main`)
+- [x] 2026-10-22 Vercel's account-level `nag.family` domain entry removed by the fleet session (`vercel domains rm`, `~/claude-computer/TASKS.md`); `vercel domains ls` shows 0 domains on 2026-10-24
 - [x] 2026-10-24 Merged `fix/duplicate-slugs` into `main` (fast-forward to b3f68fc) with the owner's OK; deploy.yml run 40088616018 green; 65/65 real routes 200 on recipes.nag.family
 - [x] 2026-10-24 Duplicate slugs: the YouTube `butter-chicken` and `orange-posset` were shadowed by the notes copies. Renamed to `butter-chicken-your-food-lab` and `orange-posset-florency-dias`; `rewrite_recipes.py` now checks slugs across every folder, and the build fails on a duplicate (tested). 51 files, 51 pages. On `fix/duplicate-slugs` (5dd3743, 70c3a8d), not merged
 - [x] 2026-10-24 Project docs in `docs/` per the documentation standard: index, overview, recipes, deploy; `docs-build` passes. On `fix/duplicate-slugs` (bf1ad4f)
