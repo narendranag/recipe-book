@@ -2,6 +2,8 @@
 
 ## Now
 
+- [ ] **Resume here:** nothing half done. Waiting on the owner's OK for the Epicure similar-recipes plan (`## Next`) and its two `(owner)` questions. On OK, run the spike in `~/projects/explore/epicure/epicure.md` §Spike (branch `later-2026-10-24` of `narendranag/explore`) in a scratch venv on mini, writing nothing into this repo
+
 ## Next
 
 - [ ] "Similar recipes" and "swap this ingredient" on recipe pages, from Epicure ingredient embeddings computed at build time — plan ready, owner's OK. The owner asked for it on 2026-10-24 (their answer to Q1 of the Epicure explore). Background: `~/projects/explore/epicure/epicure.md` (branch `later-2026-10-24` of `narendranag/explore`), §Applicability and §Spike; read it there.
