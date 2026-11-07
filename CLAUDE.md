@@ -48,3 +48,7 @@ Every push to `main` deploys, including the bots' recipe commits, so a broken MD
 - A badly formed URL (`/recipe/%E0%A4`) returns 500 from Next's router before page code runs. Vercel did the same.
 - The custom domain is set in `wrangler.jsonc` (`routes`, `custom_domain: true`). Cloudflare refuses the attach (code 100117) while a DNS record it doesn't manage exists for the hostname, and `override_existing_dns_record` doesn't change that. The cutover deleted the old CNAME and attached in one script.
 - TTFB from mini is about 0.5 s (connect 156 ms to the MRS colo) against Vercel's 0.11 s. That's network routing, not the Worker.
+
+## Rules
+
+- **Delegate to Sonnet and Haiku subagents** (owner's rule, 2026-11-07): work that can be delegated or run in parallel goes to a subagent with `model: "sonnet"` (building, editing, research, reviews) or `model: "haiku"` (mechanical lookups, searches, bulk reformatting). This session keeps the decisions, the conversation with the owner, and the review of what comes back. Detail: `~/claude-computer/claude-global/CLAUDE.md`.
