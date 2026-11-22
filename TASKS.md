@@ -21,7 +21,7 @@
 
 ## Later
 
-- [ ] Review the 21 remaining `npm audit` advisories (build tooling: `@opennextjs/cloudflare` deps, wrangler/miniflare, typescript-eslint); none reach the deployed site's runtime code paths as far as checked on 2026-11-22
+- [ ] Review the 21 remaining `npm audit` advisories (build tooling: `@opennextjs/cloudflare` deps, wrangler/miniflare, typescript-eslint); not yet checked whether any reach the deployed Worker
 
 ## Done
 
