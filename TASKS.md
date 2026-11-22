@@ -2,7 +2,8 @@
 
 ## Now
 
-- [ ] **Resume here:** nothing half done. Waiting on the owner's OK for the Epicure similar-recipes plan (`## Next`) and its two `(owner)` questions. On OK, run the spike in `~/projects/explore/epicure/epicure.md` §Spike (branch `later-2026-10-24` of `narendranag/explore`) in a scratch venv on mini, writing nothing into this repo
+- [ ] **Resume here:** nothing half done. `/api/health` is live (958d35c) and off ops-check's problem list. Waiting on the owner for the Next.js upgrade below, and on the owner's OK for the Epicure similar-recipes plan (`## Next`) and its two `(owner)` questions. On OK, run the spike in `~/projects/explore/epicure/epicure.md` §Spike (branch `later-2026-10-24` of `narendranag/explore`) in a scratch venv on mini, writing nothing into this repo
+- [ ] (owner) Upgrade `next` 16.4.2 → 16.4.6 (or newer): `npm audit` lists 7 moderate advisories, fixed from 16.4.5. Its build sometimes stops on the first run with a SecurityFatalError upgrade notice and succeeds on a retry, so a CI deploy could fail. Proposed default: upgrade in its own commit, check under `just preview`, deploy with the owner's OK
 
 ## Next
 
