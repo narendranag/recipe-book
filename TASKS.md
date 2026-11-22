@@ -2,8 +2,7 @@
 
 ## Now
 
-- [ ] **Resume here:** nothing half done. `/api/health` is live (958d35c) and off ops-check's problem list. Waiting on the owner for the Next.js upgrade below, and on the owner's OK for the Epicure similar-recipes plan (`## Next`) and its two `(owner)` questions. On OK, run the spike in `~/projects/explore/epicure/epicure.md` §Spike (branch `later-2026-10-24` of `narendranag/explore`) in a scratch venv on mini, writing nothing into this repo
-- [ ] (owner) Upgrade `next` 16.4.2 → 16.4.6 (or newer): `npm audit` lists 7 moderate advisories, fixed from 16.4.5. Its build sometimes stops on the first run with a SecurityFatalError upgrade notice and succeeds on a retry, so a CI deploy could fail. Proposed default: upgrade in its own commit, check under `just preview`, deploy with the owner's OK
+- [ ] **Resume here:** nothing half done. `/api/health` and Next.js 16.4.6 are live (05ee2d6). Waiting on the owner's OK for the Epicure similar-recipes plan (`## Next`) and its two `(owner)` questions. On OK, run the spike in `~/projects/explore/epicure/epicure.md` §Spike (branch `later-2026-10-24` of `narendranag/explore`) in a scratch venv on mini, writing nothing into this repo
 
 ## Next
 
@@ -22,9 +21,11 @@
 
 ## Later
 
+- [ ] Review the 21 remaining `npm audit` advisories (build tooling: `@opennextjs/cloudflare` deps, wrangler/miniflare, typescript-eslint); none reach the deployed site's runtime code paths as far as checked on 2026-11-22
 
 ## Done
 
+- [x] 2026-11-22 Upgraded `next` and `eslint-config-next` 16.4.2 → 16.4.6 for 7 moderate advisories (owner's OK); 66/66 routes 200 under `just preview`; deploy run 45039385077 green, 65/65 routes 200 and `just smoke` ok on recipes.nag.family. 21 other `npm audit` advisories remain, all in build tooling (opennext, wrangler, eslint deps)
 - [x] 2026-11-22 `/api/health` (ok + git sha) and `just smoke` for ops-check (fleet session's request); checked under workerd with `just preview`; deployed 958d35c (run 45037214102 green), production answers ok and recipes.nag.family is off ops-check's health problem list
 - [x] 2026-10-24 justfile (setup, test, lint, run, build, preview, deploy) for the brains standard, round 3 (fleet session's request); setup, test, lint and run checked
 - [x] 2026-10-24 Deleted the merged `cloudflare-workers` and `fix/duplicate-slugs` branches, local and origin (owner's OK; both 0 commits ahead of `main`)
