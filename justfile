@@ -27,3 +27,8 @@ preview:
 # OpenNext build + deploy to Workers. A push to main already does this (.github/workflows/deploy.yml).
 deploy:
     npm run deploy
+    just smoke
+
+# Production's /api/health must answer ok (ops-check polls the same route). SMOKE_URL overrides it.
+smoke url=env_var_or_default("SMOKE_URL", "https://recipes.nag.family"):
+    curl -fsS --retry 6 --retry-delay 5 --retry-all-errors "{{ url }}/api/health" | tee /dev/stderr | jq -e '.ok == true' > /dev/null

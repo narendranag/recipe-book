@@ -188,6 +188,11 @@
         },
         {
           "level": 2,
+          "title": "Health check",
+          "anchor": "health-check"
+        },
+        {
+          "level": 2,
           "title": "Checking a deploy",
           "anchor": "checking-a-deploy"
         }

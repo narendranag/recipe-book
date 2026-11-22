@@ -24,6 +24,7 @@
 
 ## Done
 
+- [x] 2026-11-22 `/api/health` (ok + git sha) and `just smoke` for ops-check (fleet session's request); checked under workerd with `just preview`
 - [x] 2026-10-24 justfile (setup, test, lint, run, build, preview, deploy) for the brains standard, round 3 (fleet session's request); setup, test, lint and run checked
 - [x] 2026-10-24 Deleted the merged `cloudflare-workers` and `fix/duplicate-slugs` branches, local and origin (owner's OK; both 0 commits ahead of `main`)
 - [x] 2026-10-22 Vercel's account-level `nag.family` domain entry removed by the fleet session (`vercel domains rm`, `~/claude-computer/TASKS.md`); `vercel domains ls` shows 0 domains on 2026-10-24

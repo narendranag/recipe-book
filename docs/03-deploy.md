@@ -36,7 +36,11 @@ Pages read `fs` at build time and would fail if rendered per request, which is w
 
 ## Commands
 
-The `justfile` wraps these: `just setup` (`npm ci`), `just test` (the build), `just lint` (`tsc --noEmit`, ESLint, `docs-build --check docs`), `just run`, `just build`, `just preview`, `just deploy`.
+The `justfile` wraps these: `just setup` (`npm ci`), `just test` (the build), `just lint` (`tsc --noEmit`, ESLint, `docs-build --check docs`), `just run`, `just build`, `just preview`, `just deploy` (then `just smoke`), `just smoke`.
+
+## Health check
+
+`GET /api/health` (`src/app/api/health/route.ts`) answers 200 `{"ok": true, "version": "<git sha>"}` with `Cache-Control: no-store`. It is the one route rendered per request; it reads nothing, because the site has no database, secrets or runtime env. The sha is baked in at build by `next.config.ts` (`GITHUB_SHA` in CI, `git rev-parse HEAD` locally). `ops-check` polls it hourly on mini; `just smoke` checks it on production, or on `SMOKE_URL` (for example `SMOKE_URL=http://localhost:8787 just smoke` against `just preview`).
 
 | Command           | Does                                                     |
 | ----------------- | -------------------------------------------------------- |

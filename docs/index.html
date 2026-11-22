@@ -552,7 +552,21 @@ ready goes on a branch.</p>
 <code>just lint</code> (<code>tsc --noEmit</code>, ESLint,
 <code>docs-build --check docs</code>), <code>just run</code>,
 <code>just build</code>, <code>just preview</code>,
-<code>just deploy</code>.</p>
+<code>just deploy</code> (then <code>just smoke</code>),
+<code>just smoke</code>.</p>
+<h2 id="deploy-health-check">Health check</h2>
+<p><code>GET /api/health</code>
+(<code>src/app/api/health/route.ts</code>) answers 200
+<code>{"ok": true, "version": "&lt;git sha&gt;"}</code> with
+<code>Cache-Control: no-store</code>. It is the one route rendered per
+request; it reads nothing, because the site has no database, secrets or
+runtime env. The sha is baked in at build by <code>next.config.ts</code>
+(<code>GITHUB_SHA</code> in CI, <code>git rev-parse HEAD</code>
+locally). <code>ops-check</code> polls it hourly on mini;
+<code>just smoke</code> checks it on production, or on
+<code>SMOKE_URL</code> (for example
+<code>SMOKE_URL=http://localhost:8787 just smoke</code> against
+<code>just preview</code>).</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -602,7 +616,7 @@ Cloudflare doesn't manage exists for the hostname, and
 <code>override_existing_dns_record</code> doesn't change that.</p>
 </article>
     <nav class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a href="#deploy-where-it-runs">Where it runs</a><a href="#deploy-how-a-change-reaches-production">How a change reaches
-production</a><a href="#deploy-commands">Commands</a><a href="#deploy-checking-a-deploy">Checking a deploy</a></nav>
+production</a><a href="#deploy-commands">Commands</a><a href="#deploy-health-check">Health check</a><a href="#deploy-checking-a-deploy">Checking a deploy</a></nav>
   </div>
   <footer class="pager"><a class="prev" href="#recipes">&larr; Recipes</a><span></span></footer>
 </section>
