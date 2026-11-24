@@ -14,5 +14,7 @@
   "routes": [{ "pattern": "recipes.nag.family", "custom_domain": true }],
   "observability": {
     "enabled": true
-  }
+  },
+  // crashyard (crashyard.marain.space) is this Worker's Tail Worker: a run that throws or is stopped becomes an issue there.
+  "tail_consumers": [{ "service": "crashyard" }]
 }
