@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] **Resume here:** nothing half done. `/api/health` and Next.js 16.4.6 are live (05ee2d6). Waiting on the owner's OK for the Epicure similar-recipes plan (`## Next`) and its two `(owner)` questions. On OK, run the spike in `~/projects/explore/epicure/epicure.md` §Spike (branch `later-2026-10-24` of `narendranag/explore`) in a scratch venv on mini, writing nothing into this repo
+- [ ] **Resume here:** nothing half done. `/api/health` and Next.js 16.4.6 are live (05ee2d6). Waiting on the owner's OK for the Epicure similar-recipes plan (`## Next`) and its two `(owner)` questions. On OK, run the spike in `~/explore/epicure/epicure.md` §Spike (branch `later-2026-10-24` of `narendranag/explore`) in a scratch venv on mini, writing nothing into this repo
 
 ## Next
 
-- [ ] "Similar recipes" and "swap this ingredient" on recipe pages, from Epicure ingredient embeddings computed at build time — plan ready, owner's OK. The owner asked for it on 2026-10-24 (their answer to Q1 of the Epicure explore). Background: `~/projects/explore/epicure/epicure.md` (branch `later-2026-10-24` of `narendranag/explore`), §Applicability and §Spike; read it there.
+- [ ] "Similar recipes" and "swap this ingredient" on recipe pages, from Epicure ingredient embeddings computed at build time — plan ready, owner's OK. The owner asked for it on 2026-10-24 (their answer to Q1 of the Epicure explore). Background: `~/explore/epicure/epicure.md` (branch `later-2026-10-24` of `narendranag/explore`), §Applicability and §Spike; read it there.
   - **What:** a "Similar recipes" row (top 5) on each `/recipe/[slug]` page, and per-ingredient swap hints. Both precomputed into static JSON; nothing runs per request, and the Worker and the site's runtime are unchanged.
   - **Step 1, spike (the note's §Spike, 5 h operator time, 0 USD):** Epicure core vs all-MiniLM-L6-v2 on the 51 recipes, in a scratch venv on mini, writing nothing into this repo. The owner judges 20 pairs blind (30 min). Kill it if coverage stays under 70 % after 60 min of mapping. The note's decision tree (adopt / trial / watch / skip) decides whether step 2 happens.
   - **Step 2, build (only on "adopt"):**
