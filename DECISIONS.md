@@ -9,3 +9,4 @@
 - [mini] [2026-10-24] Slugs are one namespace across sources: a clash gets the author's name as a suffix (`butter-chicken-your-food-lab`), and the build fails on a duplicate — a shadowed page is invisible, a failed build is loud and keeps production on the last good deploy
 - [mini] [2026-10-24] `just test` runs the build — there are no unit tests, and the build is the real check: it prerenders every recipe and fails on a duplicate slug
 - [mini] [2026-10-24] Commit the root `AGENTS.md` that `next dev` writes — it re-creates the file whenever it is missing, so leaving it untracked keeps the tree dirty
+- [mini] [2026-11-24] The Worker reports errors to crashyard as its Tail Worker (`tail_consumers` in `wrangler.jsonc`), with no Sentry SDK — the fleet error tracker; add the SDK only if browser errors or source maps are wanted, then turn off worker-exceptions
