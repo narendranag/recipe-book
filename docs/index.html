@@ -567,6 +567,18 @@ locally). <code>ops-check</code> polls it hourly on mini;
 <code>SMOKE_URL</code> (for example
 <code>SMOKE_URL=http://localhost:8787 just smoke</code> against
 <code>just preview</code>).</p>
+<h2 id="deploy-errors">Errors</h2>
+<p>Errors go to crashyard (<a
+href="https://crashyard.marain.space" target="_blank" rel="noopener">https://crashyard.marain.space</a>,
+project <code>recipe-book</code>), the fleet's error tracker. The Worker
+uses it as its Tail Worker (<code>tail_consumers</code> in
+<code>wrangler.jsonc</code>, since 2026-11-24), so any run that throws
+or is stopped for CPU or memory becomes an issue there. A run that
+succeeds sends nothing. There is no Sentry SDK. If one is added later
+(for browser errors or source maps), turn off crashyard's tail reporting
+with
+<code>crashyard project set recipe-book --no-worker-exceptions</code>,
+or every error arrives twice.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -616,7 +628,7 @@ Cloudflare doesn't manage exists for the hostname, and
 <code>override_existing_dns_record</code> doesn't change that.</p>
 </article>
     <nav class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a href="#deploy-where-it-runs">Where it runs</a><a href="#deploy-how-a-change-reaches-production">How a change reaches
-production</a><a href="#deploy-commands">Commands</a><a href="#deploy-health-check">Health check</a><a href="#deploy-checking-a-deploy">Checking a deploy</a></nav>
+production</a><a href="#deploy-commands">Commands</a><a href="#deploy-health-check">Health check</a><a href="#deploy-errors">Errors</a><a href="#deploy-checking-a-deploy">Checking a deploy</a></nav>
   </div>
   <footer class="pager"><a class="prev" href="#recipes">&larr; Recipes</a><span></span></footer>
 </section>

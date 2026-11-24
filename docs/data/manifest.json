@@ -193,6 +193,11 @@
         },
         {
           "level": 2,
+          "title": "Errors",
+          "anchor": "errors"
+        },
+        {
+          "level": 2,
           "title": "Checking a deploy",
           "anchor": "checking-a-deploy"
         }

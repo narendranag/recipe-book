@@ -42,6 +42,10 @@ The `justfile` wraps these: `just setup` (`npm ci`), `just test` (the build), `j
 
 `GET /api/health` (`src/app/api/health/route.ts`) answers 200 `{"ok": true, "version": "<git sha>"}` with `Cache-Control: no-store`. It is the one route rendered per request; it reads nothing, because the site has no database, secrets or runtime env. The sha is baked in at build by `next.config.ts` (`GITHUB_SHA` in CI, `git rev-parse HEAD` locally). `ops-check` polls it hourly on mini; `just smoke` checks it on production, or on `SMOKE_URL` (for example `SMOKE_URL=http://localhost:8787 just smoke` against `just preview`).
 
+## Errors
+
+Errors go to crashyard (https://crashyard.marain.space, project `recipe-book`), the fleet's error tracker. The Worker uses it as its Tail Worker (`tail_consumers` in `wrangler.jsonc`, since 2026-11-24), so any run that throws or is stopped for CPU or memory becomes an issue there. A run that succeeds sends nothing. There is no Sentry SDK. If one is added later (for browser errors or source maps), turn off crashyard's tail reporting with `crashyard project set recipe-book --no-worker-exceptions`, or every error arrives twice.
+
 | Command           | Does                                                     |
 | ----------------- | -------------------------------------------------------- |
 | `npm run dev`     | Next dev server at http://localhost:3000                 |

@@ -34,6 +34,7 @@ npm 11 gates install scripts: `allowScripts` in `package.json` pins `esbuild` an
 - Cloudflare Workers via OpenNext (`@opennextjs/cloudflare`), Worker `recipe-book`, serving recipes.nag.family as a custom domain since 2026-10-21 (also https://recipe-book.narendranag-cd1.workers.dev). Ported per `~/claude-computer/docs/runbooks/vercel-to-cloudflare.md`.
   - `open-next.config.ts` uses the static-assets incremental cache. Pages read `fs` at build time and would 500 if rendered per request. That cache is read-only, so there's no ISR: a new recipe needs a rebuild.
   - `public/_headers` marks `/_next/static/*` immutable. `wrangler.jsonc` has no secrets, because the site needs none.
+  - Errors go to crashyard (project `recipe-book`) as the Worker's Tail Worker (`tail_consumers`, 2026-11-24). There is no Sentry SDK; adding one means `crashyard project set recipe-book --no-worker-exceptions`.
   - `.github/workflows/deploy.yml` deploys on push to `main` (repo secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`).
 - Vercel is retired: the `recipe-book` project was deleted on 2026-10-21, so there is no Vercel fallback.
 
