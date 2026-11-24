@@ -25,6 +25,8 @@
 
 ## Done
 
+- [x] 2026-11-24 Worker reports errors to crashyard as its Tail Worker (crashyard brain's brief): `tail_consumers` in `wrangler.jsonc` (0c285ae), deploy run 45325092582 green at 04:17Z with crashyard listed as a tail consumer, `just smoke` ok; reported to the crashyard session
+
 - [x] 2026-11-22 Upgraded `next` and `eslint-config-next` 16.4.2 → 16.4.6 for 7 moderate advisories (owner's OK); 66/66 routes 200 under `just preview`; deploy run 45039385077 green, 65/65 routes 200 and `just smoke` ok on recipes.nag.family. 21 other `npm audit` advisories remain, all in build tooling (opennext, wrangler, eslint deps)
 - [x] 2026-11-22 `/api/health` (ok + git sha) and `just smoke` for ops-check (fleet session's request); checked under workerd with `just preview`; deployed 958d35c (run 45037214102 green), production answers ok and recipes.nag.family is off ops-check's health problem list
 - [x] 2026-10-24 justfile (setup, test, lint, run, build, preview, deploy) for the brains standard, round 3 (fleet session's request); setup, test, lint and run checked
