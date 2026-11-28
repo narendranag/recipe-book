@@ -47,15 +47,16 @@ export default function SearchBar({ recipes }: { recipes: Recipe[] }) {
         </svg>
         <input
           type="text"
-          placeholder="Search recipes..."
+          placeholder="Search recipes…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full pl-12 pr-4 py-3 rounded-lg border border-light-gray bg-white text-warm-black placeholder:text-mid-gray focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+          className="w-full pl-12 pr-12 py-3 rounded-lg border border-light-gray bg-white text-warm-black placeholder:text-mid-gray focus:border-accent focus:ring-1 focus:ring-accent focus-visible:outline-none transition-colors"
         />
         {query && (
           <button
             onClick={() => setQuery("")}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-mid-gray hover:text-warm-black"
+            aria-label="Clear search"
+            className="absolute right-1 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-lg text-mid-gray hover:text-warm-black"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path

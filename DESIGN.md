@@ -17,17 +17,17 @@ Defined in `@theme inline` in `src/app/globals.css`, used as Tailwind utilities 
 | `--color-accent` | `#C4372C` | categories, the active filter pill, step numbers, checked boxes, hover on titles and links, the search focus ring |
 | `--color-accent-dark` | `#A12D24` | hover on accent-coloured links |
 | `--color-light-gray` | `#E8E6E1` | borders, rules, image placeholders |
-| `--color-mid-gray` | `#999` | meta, descriptions, labels, placeholder text |
-| `--color-card-shadow` | `rgba(0,0,0,0.06)` | defined, unused (see Drift) |
+| `--color-mid-gray` | `#6B6B6B` | meta, descriptions, labels, placeholder text (about 5:1 on cream) |
 | white (`bg-white`) | `#FFFFFF` | cards, the search input, the inactive pills, the Cook's Notes box |
 
-- **Light only.** There's no dark theme and no `prefers-color-scheme` rule.
+- **Light only.** There's no dark theme and no `prefers-color-scheme` rule, on purpose: a cookbook on cream is the brand. Revisit only if someone asks.
+- **Focus:** one `:focus-visible` rule in `globals.css`, a 2px accent outline offset 2px, on every link, pill, card and button. The search box keeps its own accent border and ring instead.
 - **Shadow:** Tailwind's `shadow-sm` on recipe cards, `shadow-md` on hover. No other shadows.
 - **Radius:** `rounded-lg` (8px) for cards, images, the video, the search input and the notes box; `rounded-full` for filter pills and step numbers; `rounded` (4px) for checkboxes and the Video badge.
 - **Spacing:** Tailwind's 4px scale. Page gutter `px-4`, main `py-8`, grid gap `gap-6`, card padding `p-4`, `mb-8` between the filter row, the search and the grid.
 - **Width:** `max-w-6xl` (1152px) centred for the header, main and footer; a recipe page narrows to `max-w-4xl` (896px).
 
-Compared with the house system: the same warm-paper idea (cream `#FAF9F6` sits next to the house `--canvas` `#fbfaf7`), but its own accent, webfonts, a serif and no state colours.
+Compared with the house system: the same warm-paper idea (cream `#FAF9F6` sits next to the house `--canvas` `#fbfaf7`), but its own accent, webfonts, a serif and no state colours. The only red is the accent.
 
 ## Type
 
@@ -63,10 +63,10 @@ The body is antialiased. Headings take the serif; nothing else does, except card
 
 ## Components
 
-- **Recipe card** (`RecipeCard`): white, radius 8, `shadow-sm` → `shadow-md` on hover. A 4:3 image (scales to 105% on hover, .3s); no image shows a light-gray box with a thin plus icon. A YouTube recipe has a "Video" badge top right (`bg-red-600`, white 12px text). Under it: up to two categories in red uppercase, the serif title (red on hover), a two-line clamped description in mid-gray, then total time and "Serves N" in 12px mid-gray.
+- **Recipe card** (`RecipeCard`): white, radius 8, `shadow-sm` → `shadow-md` on hover. A 4:3 image (scales to 105% on hover, .3s); no image shows a light-gray box with a thin plus icon. A YouTube recipe has a "Video" badge top right (`bg-accent`, white 12px text). Under it: up to two categories in red uppercase, the serif title (red on hover), a two-line clamped description in mid-gray, then total time and "Serves N" in 12px mid-gray.
 - **Category filter pill** (`CategoryFilter`): `rounded-full`, `px-4 py-1.5`, 14px medium. Active: accent fill, white text. Inactive: white, 1px `light-gray` border, `mid-gray` border on hover. "All" comes first.
-- **Search box** (`SearchBar`): full width, white, 1px `light-gray`, radius 8, `py-3`, a search icon at the left (`pl-12`), a clear (×) button at the right once there's text. Focus: accent border and a 1px accent ring, no outline. Placeholder "Search recipes...". Client-side Fuse.js.
-- **Ingredient checklist** (`IngredientList`): a 20px box, 2px `light-gray` border, radius 4; checked, it fills accent with a white tick and the text goes mid-gray and struck through. For ticking things off while cooking.
+- **Search box** (`SearchBar`): full width, white, 1px `light-gray`, radius 8, `py-3`, a search icon at the left (`pl-12`), a clear (×) button at the right once there's text, with a 44px hit area and the label "Clear search". Focus: accent border and a 1px accent ring, no outline. Placeholder "Search recipes…". Client-side Fuse.js.
+- **Ingredient checklist** (`IngredientList`): each row is one button (`aria-pressed`), at least 44px tall, so a wet thumb can hit it anywhere. A 20px box, 2px `light-gray` border, radius 4; checked, it fills accent with a white tick and the text goes mid-gray and struck through.
 - **Step number** (`InstructionSteps`): a 32px accent circle with the number in white 14px semibold, the step text beside it; `space-y-6` between steps.
 - **Video** (`YouTubeEmbed`): a 16:9 YouTube iframe, radius 8, warm-black behind it.
 - **Icons:** inline SVG (Heroicons outline, 2px stroke; solid for the tick and the clear button) in `currentColor`, usually mid-gray. No emoji.
@@ -86,11 +86,4 @@ The body is antialiased. Headings take the serif; nothing else does, except card
 
 ## Drift to decide
 
-1. **The Video badge uses Tailwind's `bg-red-600` (`#DC2626`), not the accent `#C4372C`.** Two reds side by side on a card. Recommend: use `bg-accent`, or keep a YouTube red on purpose and say so here.
-2. **`--color-card-shadow` is defined and never used;** cards use Tailwind's `shadow-sm` / `shadow-md`. Recommend: delete the token.
-3. **Focus states are uneven.** The search box replaces the outline with an accent ring; pills, checkboxes, the clear button and cards keep the browser default. Recommend: one `:focus-visible` accent outline everywhere (2px, offset 2px).
-4. **`mid-gray` `#999` on cream is about 2.7:1,** below 4.5:1, and it carries descriptions, meta, placeholders and checked ingredients. Recommend: darken to about `#6B6B6B` (around 5:1).
-5. **Small hit targets for cooking with wet hands:** the 20px checkboxes and the bare clear button. Recommend: make the whole ingredient row the tap target, at least 44px tall on a phone.
-6. **The search placeholder uses three dots ("Search recipes...")** where the house uses an ellipsis character. Recommend: "Search recipes…".
-7. **No dark theme.** Recommend: leave it; a cookbook on cream is the brand. Revisit only if someone asks.
-8. **Leftover Next.js starter files** in `public/` (`file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`) aren't used. Recommend: delete them.
+None open. The eight items found on 2026-11-28 were settled the same day: the Video badge takes the accent, the unused `--color-card-shadow` token and the Next.js starter SVGs in `public/` are gone, one `:focus-visible` outline, `mid-gray` darkened to `#6B6B6B`, 44px ingredient rows and clear button, "Search recipes…", and no dark theme (on purpose, above).

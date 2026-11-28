@@ -30,7 +30,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
             </div>
           )}
           {recipe.source === "youtube" && (
-            <div className="absolute top-3 right-3 bg-red-600 text-white text-xs px-2 py-1 rounded">
+            <div className="absolute top-3 right-3 bg-accent text-white text-xs px-2 py-1 rounded">
               Video
             </div>
           )}
